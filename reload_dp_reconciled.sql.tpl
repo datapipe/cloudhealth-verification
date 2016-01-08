@@ -46,25 +46,25 @@ CREATE TABLE "dp_reconciled_$MONTH" (
   "payer_account_id" VARCHAR(32)
 );
 
-COPY dp_reconciled_$MONTH (linked_account, day_number, product_code, usage_type, usage_type_param, operation, operation_param, availability_zone, reserved_instance, usage_start, usage_end, usage_quantity, blended_rate, blended_cost, unblended_rate, unblended_cost, reconciled_rate, reconciled_cost, resource_id, region_1, region_2, tags, description, subscription_id, pricing_plan_id, invoice_flag, credit_flag, datapipe_flag, estimated_flag, reconciled_flag, qrc_modified_flag, math_err_flag, orig_reserved_instance, orig_usage_quantity, orig_blended_rate, orig_blended_cost, orig_unblended_rate, orig_unblended_cost, reserved_instance_id, committed_instance_id, usage_month, payer_account_id)
+COPY "dp_reconciled_$MONTH" (linked_account, day_number, product_code, usage_type, usage_type_param, operation, operation_param, availability_zone, reserved_instance, usage_start, usage_end, usage_quantity, blended_rate, blended_cost, unblended_rate, unblended_cost, reconciled_rate, reconciled_cost, resource_id, region_1, region_2, tags, description, subscription_id, pricing_plan_id, invoice_flag, credit_flag, datapipe_flag, estimated_flag, reconciled_flag, qrc_modified_flag, math_err_flag, orig_reserved_instance, orig_usage_quantity, orig_blended_rate, orig_blended_cost, orig_unblended_rate, orig_unblended_cost, reserved_instance_id, committed_instance_id, usage_month, payer_account_id)
 FROM '/mnt/cloudhealth/datapipe-hourly-reconciled-$MONTH.tsv' DELIMITER '	' CSV HEADER;
 
-ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN usage_start TYPE TIMESTAMP USING to_timestamp(usage_start, 'YYYY-MM-DD HH24:MI:SS');
-ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN usage_end TYPE TIMESTAMP USING to_timestamp(usage_end, 'YYYY-MM-DD HH24:MI:SS');
--- ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN unblended_rate TYPE DECIMAL USING unblended_rate::DECIMAL;
-ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN unblended_cost TYPE DECIMAL USING unblended_cost::DECIMAL;
--- ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN blended_rate TYPE DECIMAL USING blended_rate::DECIMAL;
-ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN reconciled_cost TYPE DECIMAL USING reconciled_cost::DECIMAL;
-ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN blended_cost TYPE DECIMAL USING blended_cost::DECIMAL;
-ALTER TABLE dp_reconciled_$MONTH ALTER COLUMN usage_quantity TYPE DECIMAL USING usage_quantity::DECIMAL;
+ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN usage_start TYPE TIMESTAMP USING to_timestamp(usage_start, 'YYYY-MM-DD HH24:MI:SS');
+ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN usage_end TYPE TIMESTAMP USING to_timestamp(usage_end, 'YYYY-MM-DD HH24:MI:SS');
+-- ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN unblended_rate TYPE DECIMAL USING unblended_rate::DECIMAL;
+ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN unblended_cost TYPE DECIMAL USING unblended_cost::DECIMAL;
+-- ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN blended_rate TYPE DECIMAL USING blended_rate::DECIMAL;
+ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN reconciled_cost TYPE DECIMAL USING reconciled_cost::DECIMAL;
+ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN blended_cost TYPE DECIMAL USING blended_cost::DECIMAL;
+ALTER TABLE "dp_reconciled_$MONTH" ALTER COLUMN usage_quantity TYPE DECIMAL USING usage_quantity::DECIMAL;
 
-CREATE INDEX ON dp_reconciled_$MONTH (product_code);
-CREATE INDEX ON dp_reconciled_$MONTH (resource_id);
-CREATE INDEX ON dp_reconciled_$MONTH (availability_zone);
-CREATE INDEX ON dp_reconciled_$MONTH (usage_type);
-CREATE INDEX ON dp_reconciled_$MONTH (operation);
-CREATE INDEX ON dp_reconciled_$MONTH (usage_start);
-CREATE INDEX ON dp_reconciled_$MONTH (linked_account);
+CREATE INDEX ON "dp_reconciled_$MONTH" (product_code);
+CREATE INDEX ON "dp_reconciled_$MONTH" (resource_id);
+CREATE INDEX ON "dp_reconciled_$MONTH" (availability_zone);
+CREATE INDEX ON "dp_reconciled_$MONTH" (usage_type);
+CREATE INDEX ON "dp_reconciled_$MONTH" (operation);
+CREATE INDEX ON "dp_reconciled_$MONTH" (usage_start);
+CREATE INDEX ON "dp_reconciled_$MONTH" (linked_account);
 
 
 
